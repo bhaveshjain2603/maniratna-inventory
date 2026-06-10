@@ -242,7 +242,7 @@ const StockOutPage = () => {
                 step="0.001"
                 value={soldTagWeight}
                 onChange={(e) => setSoldTagWeight(e.target.value)}
-                placeholder="0.000"
+                placeholder="Enter sold tag weight"
                 className="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent text-xs md:text-sm"
             />
           </div>

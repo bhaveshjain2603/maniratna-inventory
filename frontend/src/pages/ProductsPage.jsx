@@ -174,7 +174,7 @@ const ProductsPage = () => {
         </p>
 
         <p className="text-sm md:text-lg text-gray-600">
-          Gross Wt: {products.filter(product => product.status === 'In Stock').reduce((total, product) => total + (product.weight?.gross || 0), 0).toFixed(3)}g
+          Gross Wt: {products.filter(product => product.status).reduce((total, product) => total + (product.weight?.gross || 0), 0).toFixed(3)}g
         </p>
       
       </div>
