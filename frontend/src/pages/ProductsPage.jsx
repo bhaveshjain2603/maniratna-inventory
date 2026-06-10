@@ -60,11 +60,11 @@ const ProductsPage = () => {
 
   const categories = [
     'Earrings',
-    'Gents Rings',
-    'Ladies Rings',
+    'Gents Ring',
+    'Ladies Ring',
     'Baby Rings',
-    'Couple Rings',
-    'God Rings',
+    'Couple Ring',
+    'God Ring',
     'Bracelets',
   ];
 
