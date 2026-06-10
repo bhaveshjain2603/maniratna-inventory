@@ -162,9 +162,9 @@ Frontend will run on `http://localhost:5173`
 ### Inventory Details
 - **Status** - In Stock / Sold / Returned
 
-### Barcode Details
+<!-- ### Barcode Details
 - **Barcode Number** - Factory-printed barcode
-- **QR Code** - Factory-printed QR code
+- **QR Code** - Factory-printed QR code -->
 
 ## Core Modules
 
@@ -185,17 +185,17 @@ Frontend will run on `http://localhost:5173`
 - Delete products
 - Search functionality
 
-### 4. Barcode Scanning
+<!-- ### 4. Barcode Scanning
 - **Desktop**: USB barcode scanner support
 - **Mobile**: Camera-based QR/barcode scanning
-- Auto-fill product fields on scan
+- Auto-fill product fields on scan -->
 
-### 5. Stock Management
+### 4. Stock Management
 - Stock In: Add products to inventory
 - Stock Out: Remove sold/returned products
 - Real-time status updates
 
-### 6. Analytics & Reports
+### 5. Analytics & Reports
 - Inventory reports
 - Sales reports
 - Category-wise distribution
@@ -203,7 +203,7 @@ Frontend will run on `http://localhost:5173`
 - Fast-moving products
 - Dead stock detection
 
-### 7. Transaction History
+### 6. Transaction History
 Complete audit trail with:
 - Product details
 - Action type
@@ -247,7 +247,7 @@ GET    /api/analytics/category
 GET    /api/analytics/weight
 ```
 
-## Barcode Scanning Guide
+<!-- ## Barcode Scanning Guide
 
 ### Desktop USB Scanner
 1. Click "Scan Product" button
@@ -262,7 +262,7 @@ GET    /api/analytics/weight
 3. Point camera at barcode/QR code
 4. System automatically detects and reads code
 5. Product details load instantly
-6. Select action
+6. Select action -->
 
 ## Environment Variables
 
