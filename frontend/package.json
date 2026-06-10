@@ -1,0 +1,34 @@
+{
+  "name": "maniratna-inventory-frontend",
+  "version": "1.0.0",
+  "description": "MANIRATNA JEWELS - Inventory Management System Frontend",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.0",
+    "@mui/material": "^5.13.5",
+    "@mui/icons-material": "^5.13.5",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "axios": "^1.4.0",
+    "recharts": "^2.7.3",
+    "html5-qrcode": "^2.3.4",
+    "date-fns": "^2.30.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "vite": "^4.4.5",
+    "tailwindcss": "^3.3.2",
+    "postcss": "^8.4.25",
+    "autoprefixer": "^10.4.14"
+  }
+}
