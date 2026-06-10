@@ -44,7 +44,7 @@ cp .env.example .env
 2. Update `backend/.env` with your values:
 ```env
 # MongoDB Connection
-MONGODB_URI=mongodb+srv://your_username:your_password@cluster.mongodb.net/maniratna
+MONGODB_URI=mongodb+srv://your_username:your_password@cluster.mongodb.net/your_cluster_name
 
 # JWT Secret (Generate a strong secret for production)
 JWT_SECRET=your_super_secret_key_here
