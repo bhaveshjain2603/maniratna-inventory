@@ -156,7 +156,9 @@ export const updateProduct = async (req, res) => {
       );
     }
 
-    product.lastModifiedBy = req.user.id;
+    if (mongoose.Types.ObjectId.isValid(req.user.id)) {
+      product.lastModifiedBy = req.user.id;
+    }
     await product.save();
 
     let actionType = 'Edit';
