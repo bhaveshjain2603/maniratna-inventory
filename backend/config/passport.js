@@ -1,9 +1,11 @@
 import passport from 'passport';
+import express from 'express';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
 const app = express();
 
 app.use(passport.initialize());
+app.use(passport.session());
 
 passport.use(
   new GoogleStrategy(
