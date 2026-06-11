@@ -3,6 +3,7 @@ import passport from 'passport';
 import { login, register, getCurrentUser, logout } from '../controllers/authController.js';
 import { authenticate } from '../middleware/auth.js';
 import jwt from 'jsonwebtoken';
+import User from '../models/User.js';
 
 const router = express.Router();
 
@@ -26,6 +27,7 @@ router.get(
         id: req.user._id,
         name: req.user.name,
         email: req.user.email, 
+        role: req.user.role,
       },
       process.env.JWT_SECRET,
       {

@@ -96,9 +96,22 @@ export const register = async (req, res) => {
 export const getCurrentUser = async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.json({
+        user: {
+          name: req.user.name,
+          email: req.user.email,
+        },
+      });
+    }
+
     res.json({ user });
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({
+      message: 'Server error',
+      error: error.message,
+    });
   }
 };
 
