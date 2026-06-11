@@ -22,7 +22,7 @@ const transactionSchema = new mongoose.Schema(
 
     actionType: {
       type: String,
-      enum: ['In Stock', 'Sold', 'Returned'],
+      enum: ['In Stock', 'Sold', 'Returned', 'Edit'],
       required: true,
       index: true,
     },
@@ -65,7 +65,6 @@ const transactionSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
       index: true,
     },
 
