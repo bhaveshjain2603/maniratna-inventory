@@ -27,7 +27,7 @@ export default function AuthSuccessPage() {
 
     sessionStorage.setItem('token', token);
 
-    const res = await api.get('/auth/me', {
+    const res = api.get('/auth/me', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
