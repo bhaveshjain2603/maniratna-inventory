@@ -19,7 +19,9 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Please provide a password'],
+      required: function () {
+        return !this.googleId;
+      },
       minlength: 6,
       select: false,
     },
@@ -34,6 +36,10 @@ const userSchema = new mongoose.Schema(
     },
     lastLogin: {
       type: Date,
+    },
+    googleId: {
+      type: String,
+      default: null,
     },
   },
   { timestamps: true }
