@@ -34,7 +34,7 @@ router.get(
     );
 
     res.redirect(
-      `https://dashboard.maniratnajewels.in/auth-success?token=${token}`
+      `https://dashboard.maniratnajewels.in/auth-success?token=${token}&name=${encodeURIComponent(req.user.name)}&email=${encodeURIComponent(req.user.email)}`
     );
   }
 );

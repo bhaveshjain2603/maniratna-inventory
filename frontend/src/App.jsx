@@ -22,9 +22,9 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
-          <Route path="/auth-success" element={<AuthSuccessPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/auth-success" element={<AuthSuccessPage />} />
           
           <Route
             path="/"
