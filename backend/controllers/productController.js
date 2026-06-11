@@ -120,7 +120,7 @@ export const createProduct = async (req, res) => {
     
       reason: "In Stock",
     
-      user: req.user.id,
+      user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
     });
 
     res.status(201).json({
@@ -205,7 +205,7 @@ export const updateProduct = async (req, res) => {
     
       reason: product.reason,
     
-      user: req.user.id,
+      user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
       device: 'Manual Entry',
     
       metadata: {
