@@ -7,7 +7,7 @@ import productRoutes from './routes/products.js';
 import transactionRoutes from './routes/transactions.js';
 import analyticsRoutes from './routes/analytics.js';
 import stockOutRoutes from './routes/stockOutRoutes.js';
-
+import passport from 'passport';
 import './config/passport.js';
 
 dotenv.config();
@@ -28,6 +28,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 .catch(err => console.log('MongoDB connection error:', err));
 
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Routes
 app.use('/api/auth', authRoutes);
