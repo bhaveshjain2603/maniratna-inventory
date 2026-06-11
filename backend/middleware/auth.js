@@ -9,7 +9,7 @@ export const authenticate = (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
-    req.user = {
+    req?.user = {
       id: decoded.id,
       name: decoded.name,
       email: decoded.email,
@@ -22,7 +22,7 @@ export const authenticate = (req, res, next) => {
 
 export const authorize = (...roles) => {
   return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
+    if (!roles.includes(req?.user.role)) {
       return res.status(403).json({ message: 'Forbidden' });
     }
     next();

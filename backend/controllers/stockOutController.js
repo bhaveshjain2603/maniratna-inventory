@@ -79,7 +79,7 @@ export const stockOutProduct = async (req, res) => {
 
         reason: reason || 'Customer Sale',
 
-        user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
+        user: mongoose.Types.ObjectId.isValid(req?.user.id) ? req?.user.id : undefined,
 
         metadata: {
           soldWeight,
@@ -116,7 +116,7 @@ export const stockOutProduct = async (req, res) => {
 
       reason: reason || 'Customer Sale',
 
-      user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
+      user: mongoose.Types.ObjectId.isValid(req?.user.id) ? req?.user.id : undefined,
     });
 
     console.log(user);

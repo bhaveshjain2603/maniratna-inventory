@@ -24,10 +24,10 @@ router.get(
 
     const token = jwt.sign(
       {
-        id: req.user._id,
-        name: req.user.name,
-        email: req.user.email, 
-        role: req.user.role,
+        id: req?.user._id,
+        name: req?.user.name,
+        email: req?.user.email, 
+        role: req?.user.role,
       },
       process.env.JWT_SECRET,
       {
@@ -36,7 +36,7 @@ router.get(
     );
 
     res.redirect(
-      `https://dashboard.maniratnajewels.in/auth-success?token=${token}&name=${encodeURIComponent(req.user.name)}&email=${encodeURIComponent(req.user.email)}`
+      `https://dashboard.maniratnajewels.in/auth-success?token=${token}&name=${encodeURIComponent(req?.user.name)}&email=${encodeURIComponent(req?.user.email)}`
     );
   }
 );
