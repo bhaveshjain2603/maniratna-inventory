@@ -38,6 +38,19 @@ export default function AuthSuccessPage() {
       JSON.stringify(res.data.user)
     );
 
+    fetch("https://maniratna-dashboard.onrender.com/api/auth/me", {
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`
+      }
+    })
+    .then(r => r.json())
+    .then(console.log)
+
+    sessionStorage.setItem(
+      'user',
+      JSON.stringify(res.data.user)
+    );
+
     console.log(
       "Stored User: ",
       sessionStorage.getItem('user')

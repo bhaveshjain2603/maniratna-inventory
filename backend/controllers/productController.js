@@ -122,7 +122,7 @@ export const createProduct = async (req, res) => {
     
       user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
     });
-
+ 
     res.status(201).json({
       message: 'Product created successfully',
       product,
