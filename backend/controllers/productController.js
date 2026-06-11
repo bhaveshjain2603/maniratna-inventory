@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+
 import Product from '../models/Product.js';
 import Transaction from '../models/Transaction.js';
 import { calculateNetWeight } from '../utils/helpers.js';
