@@ -78,6 +78,22 @@ const LoginPage = () => {
             >
               {loading ? '⏳ Logging in...' : 'Login'}
             </button>
+
+            <button
+              onClick={() => {
+                window.location.href =
+                  'http://maniratna-dashboard.onrender.com/api/auth/google';
+              }}
+              className="w-full bg-white border border-gray-300 rounded-lg py-3 flex items-center justify-center gap-2"
+            >
+              <img
+                src="https://developers.google.com/identity/images/g-logo.png"
+                alt="Google"
+                className="w-5 h-5"
+              />
+              Continue with Google
+            </button>
+
           </form>
 
           <div className="mt-4 text-center">

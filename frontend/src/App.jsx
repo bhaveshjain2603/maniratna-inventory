@@ -6,6 +6,7 @@ import Layout from './components/Layout';
 
 // Pages
 import LoginPage from './pages/LoginPage';
+import AuthSuccessPage from './pages/AuthSuccessPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
 import ProductsPage from './pages/ProductsPage';
@@ -21,6 +22,7 @@ function App() {
     <Router>
       <AuthProvider>
         <Routes>
+          <Route path="/auth-success" element={<AuthSuccessPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           
