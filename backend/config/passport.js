@@ -17,13 +17,23 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
 
-      const user = {
-        googleId: profile.id,
-        name: profile.displayName,
-        email: profile.emails[0].value,
-      };
+      try {
+        let user = await User.findOne({
+          email: profile.emails[0].value,
+        });
 
-      done(null, user);
+        if (!user) {
+          user = await User.create({
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            googleId: profile.id,
+          });
+        }
+
+        done(null, user);
+      } catch (err) {
+        done(err, null);
+      }
     }
   )
 );
