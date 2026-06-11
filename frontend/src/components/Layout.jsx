@@ -60,9 +60,9 @@ const Layout = () => {
       >
         <div className="p-3 md:p-4 border-b border-gray-700 flex items-center justify-between flex-shrink-0">
           {sidebarOpen && (
-            <span className="text-sm md:text-lg">Welcome, <br /> {user?.name}</span>
-            
+            <span className="text-sm md:text-lg">Welcome,</span>
           )}
+          <span className="text-lg md:text-2xl">{user?.name}</span>
           {sidebarOpen && isMobile && (
             <button
               onClick={() => setSidebarOpen(false)}
