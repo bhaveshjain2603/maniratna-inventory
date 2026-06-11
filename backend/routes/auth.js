@@ -2,6 +2,7 @@ import express from 'express';
 import passport from 'passport';
 import { login, register, getCurrentUser, logout } from '../controllers/authController.js';
 import { authenticate } from '../middleware/auth.js';
+import jwt from 'jsonwebtoken';
 
 const router = express.Router();
 
@@ -9,6 +10,7 @@ router.get(
   '/google',
   passport.authenticate('google', {
     scope: ['profile', 'email'],
+    session: false,
   })
 );
 

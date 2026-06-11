@@ -2,18 +2,13 @@ import passport from 'passport';
 import express from 'express';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 
-const app = express();
-
-app.use(passport.initialize());
-app.use(passport.session());
-
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL:
-        '/api/auth/google/callback',
+        'https://maniratna-dashboard.onrender.com/api/auth/google/callback',
     },
     async (accessToken, refreshToken, profile, done) => {
 

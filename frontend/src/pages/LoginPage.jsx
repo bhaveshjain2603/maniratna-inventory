@@ -82,7 +82,7 @@ const LoginPage = () => {
             <button
               onClick={() => {
                 window.location.href =
-                  'http://maniratna-dashboard.onrender.com/api/auth/google';
+                  'https://maniratna-dashboard.onrender.com/api/auth/google';
               }}
               className="w-full bg-white border border-gray-300 rounded-lg py-3 flex items-center justify-center gap-2"
             >
