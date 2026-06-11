@@ -27,12 +27,15 @@ export default function AuthSuccessPage() {
 
     sessionStorage.setItem('token', token);
 
+    const res = await api.get('/auth/me', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
     sessionStorage.setItem(
       'user',
-      JSON.stringify({
-        name,
-        email,
-      })
+      JSON.stringify(res.data.user)
     );
 
     console.log(
