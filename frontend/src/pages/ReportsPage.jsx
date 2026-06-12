@@ -87,7 +87,7 @@ const ReportsPage = () => {
           </h2>
           {deadStock.length > 0 ? (
             <div className="overflow-x-auto">
-              <div className="max-h-[400px] overflow-y-auto border rounded-lg">
+              <div className="max-h-[200px] overflow-y-auto border rounded-lg">
                 <table className="w-full text-xs md:text-sm">
                   <thead className="bg-gray-100 sticky top-0 z-10">
                     <tr>
@@ -193,7 +193,7 @@ const ReportsPage = () => {
 
           {stockAging.length > 0 ? (
             <div className="overflow-x-auto">
-              <div className="max-h-[400px] overflow-y-auto border rounded-lg">
+              <div className="max-h-[200px] overflow-y-auto border rounded-lg">
                 <table className="w-full text-xs md:text-sm">
                   <thead className="bg-gray-100 sticky top-0 z-10">
                     <tr>
