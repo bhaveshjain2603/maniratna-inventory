@@ -1,7 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import api from '../utils/api';
-import { formatWeight } from '../utils/formatters';
+import React, { useEffect, useState } from "react";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
+import api from "../utils/api";
+import { formatWeight } from "../utils/formatters";
 
 const ReportsPage = () => {
   const [categoryDistribution, setCategoryDistribution] = useState([]);
@@ -17,26 +26,28 @@ const ReportsPage = () => {
     try {
       setLoading(true);
       const [categoryRes, deadStockRes, stockAgingRes] = await Promise.all([
-        api.get('/analytics/category'),
-        api.get('/analytics/dead-stock'),
-        api.get('/analytics/stock-aging'),
+        api.get("/analytics/category"),
+        api.get("/analytics/dead-stock"),
+        api.get("/analytics/stock-aging"),
       ]);
 
       setCategoryDistribution(categoryRes.data.distribution || []);
       setDeadStock(deadStockRes.data.deadStock || []);
       setStockAging(stockAgingRes.data.stockAging || []);
     } catch (error) {
-      console.error('Error fetching report data:', error);
+      console.error("Error fetching report data:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const COLORS = ['#D4AF37', '#2A2A2A', '#999999', '#CCCCCC', '#666666'];
+  const COLORS = ["#D4AF37", "#2A2A2A", "#999999", "#CCCCCC", "#666666"];
 
   return (
     <div className="space-y-4 md:space-y-6">
-      <h1 className="text-lg md:text-2xl lg:text-3xl font-bold text-matte-black">📊 Reports</h1>
+      <h1 className="text-lg md:text-2xl lg:text-3xl font-bold text-matte-black">
+        📊 Reports
+      </h1>
 
       {/* Category Distribution */}
       <div className="bg-white rounded-lg shadow p-4 md:p-6">
@@ -58,7 +69,9 @@ const ReportsPage = () => {
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <div className="text-center py-12 text-xs md:text-sm text-gray-600">No data available</div>
+          <div className="text-center py-12 text-xs md:text-sm text-gray-600">
+            No data available
+          </div>
         )}
       </div>
 
@@ -68,33 +81,46 @@ const ReportsPage = () => {
           <h2 className="flex flex-row justify-between text-sm md:text-lg font-bold text-matte-black mb-2 md:mb-4">
             ⚠️ Dead Stock Report
             <p className="text-sm md:text-lg">
-              📊 Total: {deadStock.length} product{deadStock.length !== 1 ? 's' : ''}
+              📊 Total: {deadStock.length} product
+              {deadStock.length !== 1 ? "s" : ""}
             </p>
           </h2>
           {deadStock.length > 0 ? (
             <div className="overflow-x-auto">
-              <table className="w-full text-xs md:text-sm">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-2 md:px-4 py-2 text-left">Code</th>
-                    <th className="px-2 md:px-4 py-2 text-left">Category</th>
-                    <th className="px-2 md:px-4 py-2 text-left">Gross Wt.</th>
-                    <th className="px-2 md:px-4 py-2 text-left">Net Wt.</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {deadStock.slice(0, 10).map((product) => (
-                    <tr key={product._id} className="border-t hover:bg-gray-50">
-                      <td className="px-2 md:px-4 py-2 font-semibold text-gold">
-                        {product.productCode}
-                      </td>
-                      <td className="px-2 md:px-4 py-2 text-xs md:text-sm truncate">{product.category}</td>
-                      <td className="px-2 md:px-4 py-2">{product.weight?.gross}g</td>
-                      <td className="px-2 md:px-4 py-2">{product.weight?.net}g</td>
+              <div className="max-h-[400px] overflow-y-auto border rounded-lg">
+                <table className="w-full text-xs md:text-sm">
+                  <thead className="bg-gray-100 sticky top-0 z-10">
+                    <tr>
+                      <th className="px-2 md:px-4 py-2 text-left">Code</th>
+                      <th className="px-2 md:px-4 py-2 text-left">Category</th>
+                      <th className="px-2 md:px-4 py-2 text-left">Gross Wt.</th>
+                      <th className="px-2 md:px-4 py-2 text-left">Net Wt.</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {deadStock.slice(0, 10).map((product) => (
+                      <tr
+                        key={product._id}
+                        className="border-t hover:bg-gray-50"
+                      >
+                        <td className="px-2 md:px-4 py-2 font-semibold text-gold">
+                          {product.productCode}
+                        </td>
+                        <td className="px-2 md:px-4 py-2 text-xs md:text-sm truncate">
+                          {product.category}
+                        </td>
+                        <td className="px-2 md:px-4 py-2">
+                          {product.weight?.gross}g
+                        </td>
+                        <td className="px-2 md:px-4 py-2">
+                          {product.weight?.net}g
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
               {deadStock.length > 10 && (
                 <p className="text-xs md:text-sm text-gray-600 mt-2">
                   ... and {deadStock.length - 10} more
@@ -152,6 +178,7 @@ const ReportsPage = () => {
           )}
         </div> */}
 
+        {/* Stock Aging */}
         <div className="bg-white rounded-lg shadow p-4 md:p-6">
           <h2 className="flex flex-row justify-between text-sm md:text-lg font-bold text-matte-black mb-2 md:mb-4">
             ⏳ Stock Aging
@@ -159,69 +186,61 @@ const ReportsPage = () => {
               (Oldest inventory first)
             </span> */}
             <p className="text-sm md:text-lg">
-              📊 Total: {stockAging.length} product{stockAging.length !== 1 ? 's' : ''}
+              📊 Total: {stockAging.length} product
+              {stockAging.length !== 1 ? "s" : ""}
             </p>
           </h2>
 
           {stockAging.length > 0 ? (
             <div className="overflow-x-auto">
-              <table className="w-full text-xs md:text-sm">
-                <thead className="bg-gray-100">
-                  <tr>
-                    <th className="px-2 md:px-4 py-2 text-left">
-                      Product Code
-                    </th>
-          
-                    <th className="px-2 md:px-4 py-2 text-left">
-                      Category
-                    </th>
-          
-                    <th className="px-2 md:px-4 py-2 text-left">
-                      Gross Wt.
-                    </th>
-          
-                    <th className="px-2 md:px-4 py-2 text-left">
-                      Days
-                    </th>
-                  </tr>
-                </thead>
-          
-                <tbody>
-                  {stockAging.slice(0, 10).map((item) => (
-                    <tr
-                      key={item._id}
-                      className="border-t hover:bg-gray-50"
-                    >
-                      <td className="px-2 md:px-4 py-2 font-semibold text-gold">
-                        {item.productCode}
-                      </td>
-                  
-                      <td className="px-2 md:px-4 py-2">
-                        {item.category}
-                      </td>
-                  
-                      <td className="px-2 md:px-4 py-2">
-                        {formatWeight(item.grossWeight)}
-                      </td>
-                  
-                      <td className="px-2 md:px-4 py-2">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                            item.daysInStock > 180
-                              ? 'bg-red-100 text-red-800'
-                              : item.daysInStock > 90
-                              ? 'bg-orange-100 text-orange-800'
-                              : 'bg-green-100 text-green-800'
-                          }`}
-                        >
-                          {item.daysInStock} Days
-                        </span>
-                      </td>
+              <div className="max-h-[400px] overflow-y-auto border rounded-lg">
+                <table className="w-full text-xs md:text-sm">
+                  <thead className="bg-gray-100 sticky top-0 z-10">
+                    <tr>
+                      <th className="px-2 md:px-4 py-2 text-left">
+                        Product Code
+                      </th>
+
+                      <th className="px-2 md:px-4 py-2 text-left">Category</th>
+
+                      <th className="px-2 md:px-4 py-2 text-left">Gross Wt.</th>
+
+                      <th className="px-2 md:px-4 py-2 text-left">Days</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-                
+                  </thead>
+
+                  <tbody>
+                    {stockAging.slice(0, 10).map((item) => (
+                      <tr key={item._id} className="border-t hover:bg-gray-50">
+                        <td className="px-2 md:px-4 py-2 font-semibold text-gold">
+                          {item.productCode}
+                        </td>
+
+                        <td className="px-2 md:px-4 py-2">{item.category}</td>
+
+                        <td className="px-2 md:px-4 py-2">
+                          {formatWeight(item.grossWeight)}
+                        </td>
+
+                        <td className="px-2 md:px-4 py-2">
+                          <span
+                            className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                              item.daysInStock > 180
+                                ? "bg-red-100 text-red-800"
+                                : item.daysInStock > 90
+                                  ? "bg-orange-100 text-orange-800"
+                                  : "bg-green-100 text-green-800"
+                            }`}
+                          >
+                            {item.daysInStock} Days
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
               {stockAging.length > 10 && (
                 <p className="text-xs md:text-sm text-gray-600 mt-2">
                   ... and {stockAging.length - 10} more
@@ -238,7 +257,9 @@ const ReportsPage = () => {
 
       {/* Export Options */}
       <div className="bg-white rounded-lg shadow p-4 md:p-6">
-        <h2 className="text-sm md:text-lg font-bold text-matte-black mb-3 md:mb-4">⬇️ Export Reports (*In developing)</h2>
+        <h2 className="text-sm md:text-lg font-bold text-matte-black mb-3 md:mb-4">
+          ⬇️ Export Reports (*In developing)
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
           <button className="border-2 border-gold text-gold font-semibold py-2 rounded-lg hover:bg-gold hover:text-matte-black transition text-xs md:text-sm">
             📊 Inventory
