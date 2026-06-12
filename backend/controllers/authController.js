@@ -28,16 +28,17 @@ export const login = async (req, res) => {
       return res.status(403).json({ message: 'User account is inactive' });
     }
 
+    
+    // Update last login
+    user.lastLogin = new Date();
+    await user.save();
+    
     if (user.twoFactorEnabled) {
       return res.json({
         requires2FA: true,
         userId: user._id,
       });
     }
-
-    // Update last login
-    user.lastLogin = new Date();
-    await user.save();
 
     const token = jwt.sign(
       { 

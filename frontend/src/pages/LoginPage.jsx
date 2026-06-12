@@ -21,8 +21,11 @@ const LoginPage = () => {
         email,
         password,
       });
-      
+
       if (response.data.requires2FA) {
+
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('user');
       
         sessionStorage.setItem(
           'tempUserId',
@@ -33,12 +36,12 @@ const LoginPage = () => {
       
         return;
       }
-      
+
       login(
         response.data.user,
         response.data.token
       );
-      
+
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
