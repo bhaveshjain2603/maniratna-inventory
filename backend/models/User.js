@@ -19,9 +19,7 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: function () {
-        return !this.googleId;
-      },
+      required: true,
       minlength: 6,
       select: false,
     },
@@ -36,6 +34,15 @@ const userSchema = new mongoose.Schema(
     },
     lastLogin: {
       type: Date,
+    },
+    twoFactorEnabled: {
+      type: Boolean,
+      default: false,
+    },
+
+    twoFactorSecret: {
+      type: String,
+      default: null,
     },
   },
   { timestamps: true }

@@ -7,6 +7,7 @@ import Layout from './components/Layout';
 // Pages
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+import VerifyOTPPage from './pages/VerifyOTPPage';
 import DashboardPage from './pages/DashboardPage';
 import ProductsPage from './pages/ProductsPage';
 import AddProductPage from './pages/AddProductPage';
@@ -23,7 +24,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          
+          <Route path="/verify-otp" element={<VerifyOTPPage />} />
+
           <Route
             path="/"
             element={

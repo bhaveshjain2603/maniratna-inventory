@@ -1,5 +1,7 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
+import speakeasy from 'speakeasy';
+import QRCode from 'qrcode';
 import { hashPassword, comparePassword } from '../utils/helpers.js';
 
 export const login = async (req, res) => {
@@ -24,6 +26,13 @@ export const login = async (req, res) => {
 
     if (!user.isActive) {
       return res.status(403).json({ message: 'User account is inactive' });
+    }
+
+    if (user.twoFactorEnabled) {
+      return res.json({
+        requires2FA: true,
+        userId: user._id,
+      });
     }
 
     // Update last login
@@ -117,4 +126,90 @@ export const getCurrentUser = async (req, res) => {
 
 export const logout = (req, res) => {
   res.json({ message: 'Logout successful' });
+};
+
+export const setup2FA = async (req, res) => {
+
+  const user = await User.findById(req.user.id);
+
+  const secret = speakeasy.generateSecret({
+    name: `MANIRATNA JEWELS (${user.email})`,
+  });
+
+  user.twoFactorSecret = secret.base32;
+
+  await user.save();
+
+  const qrCode = await QRCode.toDataURL(
+    secret.otpauth_url
+  );
+
+  res.json({
+    qrCode,
+    secret: secret.base32,
+  });
+};
+
+export const enable2FA = async (req, res) => {
+
+  const { token } = req.body;
+
+  const user = await User.findById(req.user.id);
+
+  const verified = speakeasy.totp.verify({
+    secret: user.twoFactorSecret,
+    encoding: 'base32',
+    token,
+  });
+
+  if (!verified) {
+    return res.status(400).json({
+      message: 'Invalid OTP',
+    });
+  }
+
+  user.twoFactorEnabled = true;
+
+  await user.save();
+
+  res.json({
+    message: '2FA enabled',
+  });
+};
+
+export const verify2FA = async (req, res) => {
+
+  const { userId, token } = req.body;
+
+  const user = await User.findById(userId);
+
+  const verified = speakeasy.totp.verify({
+    secret: user.twoFactorSecret,
+    encoding: 'base32',
+    token,
+    window: 1,
+  });
+
+  if (!verified) {
+    return res.status(400).json({
+      message: 'Invalid OTP',
+    });
+  }
+
+  const jwtToken = jwt.sign(
+    {
+      id: user._id,
+      email: user.email,
+      role: user.role,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: '7d',
+    }
+  );
+
+  res.json({
+    token: jwtToken,
+    user,
+  });
 };

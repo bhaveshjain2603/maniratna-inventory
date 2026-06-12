@@ -17,8 +17,28 @@ const LoginPage = () => {
     setError('');
 
     try {
-      const response = await api.post('/auth/login', { email, password });
-      login(response.data.user, response.data.token);
+      const response = await api.post('/auth/login', {
+        email,
+        password,
+      });
+      
+      if (response.data.requires2FA) {
+      
+        sessionStorage.setItem(
+          'tempUserId',
+          response.data.userId
+        );
+      
+        navigate('/verify-otp');
+      
+        return;
+      }
+      
+      login(
+        response.data.user,
+        response.data.token
+      );
+      
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
