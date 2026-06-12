@@ -22,6 +22,8 @@ const LoginPage = () => {
         password,
       });
 
+      console.log("LOGIN RESPONSE:", response.data);
+
       if (response.data.requires2FA) {
 
         sessionStorage.removeItem('token');

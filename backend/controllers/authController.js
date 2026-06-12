@@ -32,7 +32,10 @@ export const login = async (req, res) => {
     // Update last login
     user.lastLogin = new Date();
     await user.save();
-    
+
+    console.log("User:", user.email);
+    console.log("2FA Enabled:", user.twoFactorEnabled);
+
     if (user.twoFactorEnabled) {
       return res.json({
         requires2FA: true,
