@@ -53,7 +53,7 @@ export const stockIn = async (req, res) => {
         tag: product.weight?.tag,
         net: product.weight?.net,
       },
-      user: mongoose.Types.ObjectId.isValid(req?.user.id) ? req?.user.id : undefined,
+      user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
       device,
       notes,
     });
@@ -98,7 +98,7 @@ export const stockOut = async (req, res) => {
         tag: product.weight.tag,
         net: product.weight.net,
       },
-      user: mongoose.Types.ObjectId.isValid(req?.user.id) ? req?.user.id : undefined,
+      user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
       device,
       reason,
       notes,

@@ -37,10 +37,6 @@ const userSchema = new mongoose.Schema(
     lastLogin: {
       type: Date,
     },
-    googleId: {
-      type: String,
-      default: null,
-    },
   },
   { timestamps: true }
 );

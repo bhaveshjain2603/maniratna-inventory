@@ -12,7 +12,11 @@
     "build:frontend": "cd frontend && npm run build",
     "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install"
   },
-  "keywords": ["inventory", "jewellery", "mern"],
+  "keywords": [
+    "inventory",
+    "jewellery",
+    "mern"
+  ],
   "author": "MANIRATNA JEWELS",
   "license": "PRIVATE",
   "devDependencies": {

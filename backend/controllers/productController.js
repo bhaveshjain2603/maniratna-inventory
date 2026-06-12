@@ -99,7 +99,7 @@ export const createProduct = async (req, res) => {
         tag: weight.tag || 0,
         net: calculateNetWeight(weight.gross, weight.stone || 0, weight.tag || 0),
       },
-      createdBy: req?.user.id,
+      createdBy: req.user.id,
     });
 
     await product.save();
@@ -120,7 +120,7 @@ export const createProduct = async (req, res) => {
     
       reason: "In Stock",
     
-      user: mongoose.Types.ObjectId.isValid(req?.user.id) ? req?.user.id : undefined,
+      user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
     });
  
     res.status(201).json({
@@ -158,8 +158,8 @@ export const updateProduct = async (req, res) => {
       );
     }
 
-    if (mongoose.Types.ObjectId.isValid(req?.user.id)) {
-      product.lastModifiedBy = req?.user.id;
+    if (mongoose.Types.ObjectId.isValid(req.user.id)) {
+      product.lastModifiedBy = req.user.id;
     }
     await product.save();
 
@@ -205,7 +205,7 @@ export const updateProduct = async (req, res) => {
     
       reason: product.reason,
     
-      user: mongoose.Types.ObjectId.isValid(req?.user.id) ? req?.user.id : undefined,
+      user: mongoose.Types.ObjectId.isValid(req.user.id) ? req.user.id : undefined,
       device: 'Manual Entry',
     
       metadata: {

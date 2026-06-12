@@ -171,7 +171,7 @@ const TransactionsPage = () => {
                     </td>
                       
                     <td className="px-3 md:px-6 py-2 md:py-4 text-xs md:text-sm">
-                      {trans?.user?.name}
+                      {trans.user?.name}
                     </td>
                       
                   </tr>
@@ -219,7 +219,7 @@ const TransactionsPage = () => {
                   </p>
 
                   <p className="text-gray-600">
-                    User: {trans?.user?.name}
+                    User: {trans.user?.name}
                   </p>
                 </div>
               </div>

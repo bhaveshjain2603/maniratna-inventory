@@ -18,7 +18,7 @@ const LoginPage = () => {
 
     try {
       const response = await api.post('/auth/login', { email, password });
-      login(response.data?.user, response.data.token);
+      login(response.data.user, response.data.token);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed');
@@ -77,21 +77,6 @@ const LoginPage = () => {
               className="w-full bg-gold text-matte-black font-semibold py-2 rounded-lg hover:bg-yellow-600 transition disabled:opacity-50"
             >
               {loading ? '⏳ Logging in...' : 'Login'}
-            </button>
-
-            <button
-              onClick={() => {
-                window.location.href =
-                  'https://maniratna-dashboard.onrender.com/api/auth/google';
-              }}
-              className="w-full bg-white border border-gray-300 rounded-lg py-3 flex items-center justify-center gap-2"
-            >
-              <img
-                src="https://developers.google.com/identity/images/g-logo.png"
-                alt="Google"
-                className="w-5 h-5"
-              />
-              Continue with Google
             </button>
 
           </form>

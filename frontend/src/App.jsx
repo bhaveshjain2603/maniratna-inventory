@@ -6,7 +6,6 @@ import Layout from './components/Layout';
 
 // Pages
 import LoginPage from './pages/LoginPage';
-import AuthSuccessPage from './pages/AuthSuccessPage';
 import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
 import ProductsPage from './pages/ProductsPage';
@@ -24,7 +23,6 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/auth-success" element={<AuthSuccessPage />} />
           
           <Route
             path="/"
