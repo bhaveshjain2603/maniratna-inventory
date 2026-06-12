@@ -95,30 +95,26 @@ const Layout = () => {
               {sidebarOpen && <span className="whitespace-nowrap">{item.label}</span>}
             </Link>
           ))}
+
+          <div className="p-2 md:p-4 border-t border-gray-700">
+            <button
+              onClick={() => navigate('/setup-2fa')}
+              className="w-full flex items-center justify-center space-x-2 p-2 md:p-3 bg-gray-600 hover:bg-gray-700 rounded-lg transition text-xs md:text-sm mb-2"
+            >
+              <SecurityIcon className="text-sm md:text-lg" />
+              {sidebarOpen && <span>Enable 2FA</span>}
+            </button>
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center justify-center space-x-2 p-2 md:p-3 bg-red-600 hover:bg-red-700 rounded-lg transition text-xs md:text-sm"
+            >
+              <LogoutIcon className="text-sm md:text-lg" />
+              {sidebarOpen && <span>Logout</span>}
+            </button>
+          </div>
+
         </nav>
 
-        <div className="p-2 md:p-4 border-t border-gray-700">
-          {/* {sidebarOpen && (
-            <div className="text-xs mb-3 pb-3 border-b border-gray-700">
-              <p className="text-sm md:text-md text-gray-400">Logged in as</p>
-              <p className="text-lg md:text-md font-semibold text-gold truncate">{user?.name}</p>
-            </div>
-          )} */}
-          <button
-            onClick={() => navigate('/setup-2fa')}
-            className="w-full flex items-center justify-center space-x-2 p-2 md:p-3 bg-gray-600 hover:bg-gray-700 rounded-lg transition text-xs md:text-sm mb-2"
-          >
-            <SecurityIcon className="text-sm md:text-lg" />
-            {sidebarOpen && <span>Enable 2FA</span>}
-          </button>
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center space-x-2 p-2 md:p-3 bg-red-600 hover:bg-red-700 rounded-lg transition text-xs md:text-sm"
-          >
-            <LogoutIcon className="text-sm md:text-lg" />
-            {sidebarOpen && <span>Logout</span>}
-          </button>
-        </div>
       </div>
 
       <div className="flex-1 flex flex-col overflow-hidden w-full">
