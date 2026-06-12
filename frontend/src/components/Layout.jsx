@@ -65,7 +65,7 @@ const Layout = () => {
                 Welcome,
               </span>
 
-              <span className="text-lg md:text-base font-semibold">
+              <span className="text-lg md:text-2xl font-semibold">
                 {user?.name}
               </span>
             </div>            
