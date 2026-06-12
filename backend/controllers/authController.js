@@ -133,6 +133,8 @@ export const logout = (req, res) => {
 
 export const setup2FA = async (req, res) => {
 
+  console.log("SETUP 2FA HIT");
+
   const user = await User.findById(req.user.id);
 
   const secret = speakeasy.generateSecret({

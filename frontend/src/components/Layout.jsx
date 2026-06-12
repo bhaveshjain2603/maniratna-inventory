@@ -104,6 +104,12 @@ const Layout = () => {
             </div>
           )} */}
           <button
+            onClick={() => navigate('/setup-2fa')}
+            className="w-full flex items-center justify-center space-x-2 p-2 md:p-3 bg-gray-600 hover:bg-gray-700 rounded-lg transition text-xs md:text-sm mb-2"
+          >
+            Enable 2FA
+          </button>
+          <button
             onClick={handleLogout}
             className="w-full flex items-center justify-center space-x-2 p-2 md:p-3 bg-red-600 hover:bg-red-700 rounded-lg transition text-xs md:text-sm"
           >

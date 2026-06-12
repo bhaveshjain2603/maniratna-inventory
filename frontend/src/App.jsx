@@ -8,6 +8,7 @@ import Layout from './components/Layout';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import VerifyOTPPage from './pages/VerifyOTPPage';
+import Setup2FAPage from './pages/Setup2FAPage';
 import DashboardPage from './pages/DashboardPage';
 import ProductsPage from './pages/ProductsPage';
 import AddProductPage from './pages/AddProductPage';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/verify-otp" element={<VerifyOTPPage />} />
+          <Route path="/setup-2fa" element={<Setup2FAPage />} />
 
           <Route
             path="/"

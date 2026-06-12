@@ -12,6 +12,6 @@ router.get('/me', authenticate, getCurrentUser);
 router.post('/logout', authenticate, logout);
 router.post('/setup-2fa', authenticate, setup2FA);
 router.post('/enable-2fa', authenticate, enable2FA);
-router.post('/verify-2fa', authenticate, verify2FA);
+router.post('/verify-2fa', verify2FA);
 
 export default router;
