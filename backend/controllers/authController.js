@@ -28,7 +28,6 @@ export const login = async (req, res) => {
       return res.status(403).json({ message: 'User account is inactive' });
     }
 
-    
     // Update last login
     user.lastLogin = new Date();
     await user.save();
