@@ -32,7 +32,7 @@ const VerifyOTPPage = () => {
 
       sessionStorage.removeItem('tempUserId');
 
-      navigate('/dashboard');
+      navigate('/dashboard'); 
     } catch (err) {
       setError(
         err.response?.data?.message ||
