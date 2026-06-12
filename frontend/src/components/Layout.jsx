@@ -10,6 +10,7 @@ import {
   Receipt as ReceiptIcon,
   Assessment as AssessmentIcon,
   Logout as LogoutIcon,
+  Security as SecurityIcon,
 } from '@mui/icons-material';
 
 const Layout = () => {
@@ -107,6 +108,7 @@ const Layout = () => {
             onClick={() => navigate('/setup-2fa')}
             className="w-full flex items-center justify-center space-x-2 p-2 md:p-3 bg-gray-600 hover:bg-gray-700 rounded-lg transition text-xs md:text-sm mb-2"
           >
+            <SecurityIcon className="text-sm md:text-lg" />
             Enable 2FA
           </button>
           <button
