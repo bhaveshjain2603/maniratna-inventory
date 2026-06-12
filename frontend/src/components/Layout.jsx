@@ -97,7 +97,7 @@ const Layout = () => {
           ))}
         </nav>
 
-        <div className="p-2 md:p-4 border-t border-gray-700 flex-shrink-0">
+        <div className="p-2 md:p-4 border-t border-gray-700">
           {/* {sidebarOpen && (
             <div className="text-xs mb-3 pb-3 border-b border-gray-700">
               <p className="text-sm md:text-md text-gray-400">Logged in as</p>
