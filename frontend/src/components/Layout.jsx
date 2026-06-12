@@ -57,7 +57,7 @@ const Layout = () => {
       <div
         className={`fixed md:relative z-50 md:z-auto top-0 left-0 h-screen ${
           sidebarOpen ? 'w-56' : 'w-0 lg:w-20'
-        } bg-matte-black text-white transition-all duration-300 flex flex-col overflow-hidden`}
+        } bg-matte-black text-white transition-all duration-300 flex flex-col overflow-y-auto`}
       >
         <div className="p-3 md:p-4 border-b border-gray-700 flex items-center justify-between flex-shrink-0">
           {sidebarOpen && (
@@ -81,7 +81,7 @@ const Layout = () => {
           )}
         </div>
 
-        <nav className="flex-1 p-2 md:p-4 space-y-1 md:space-y-2 overflow-y-auto">
+        <nav className="flex-1 p-2 md:p-4 space-y-1 md:space-y-2">
           {navItems.map((item) => (
             <Link
               key={item.path}
