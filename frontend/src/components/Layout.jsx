@@ -46,7 +46,7 @@ const Layout = () => {
   ];
 
   return (
-    <div className="flex h-full bg-off-white">
+    <div className="flex h-fit bg-off-white">
       {window.innerWidth < 768 && sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/20 z-40"
