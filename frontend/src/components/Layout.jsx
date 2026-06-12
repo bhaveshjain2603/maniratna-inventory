@@ -96,7 +96,7 @@ const Layout = () => {
             </Link>
           ))}
 
-          <div className="p-2 md:p-4 border-t border-gray-700">
+          <div className="p-2 md:p-4 mt-6 border-t border-gray-700">
             <button
               onClick={() => navigate('/setup-2fa')}
               className="w-full flex items-center justify-center space-x-2 p-2 md:p-3 bg-gray-600 hover:bg-gray-700 rounded-lg transition text-xs md:text-sm mb-2"
