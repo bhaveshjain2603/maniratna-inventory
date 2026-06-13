@@ -210,7 +210,8 @@ const ReportsPage = () => {
                   </thead>
 
                   <tbody>
-                    {stockAging.slice(0, 10).map((item) => (
+                    {/* {stockAging.slice(0, 10).map((item) => ( */}
+                    {stockAging.map((item) => (
                       <tr key={item._id} className="border-t hover:bg-gray-50">
                         <td className="px-2 md:px-4 py-2 font-semibold text-gold">
                           {item.productCode}
@@ -241,11 +242,11 @@ const ReportsPage = () => {
                 </table>
               </div>
 
-              {stockAging.length > 10 && (
+              {/* {stockAging.length > 10 && (
                 <p className="text-xs md:text-sm text-gray-600 mt-2">
                   ... and {stockAging.length - 10} more
                 </p>
-              )}
+              )} */}
             </div>
           ) : (
             <div className="text-center py-8 text-xs md:text-sm text-gray-600">
