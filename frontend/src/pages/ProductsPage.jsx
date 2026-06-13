@@ -94,7 +94,7 @@ const ProductsPage = () => {
                     Product Code
                   </span>
 
-                  <span className="font-semibold text-gold">
+                  <span>
                     {selectedProduct.productCode}
                   </span>
                 </div>
