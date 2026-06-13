@@ -252,7 +252,7 @@ MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/maniratna
 
 ### Transaction Collection
 - product reference
-- actionType, previousStatus, newStatus
+- statusType, previousStatus, newStatus
 - weight details
 - user reference, device type
 - reason (for stock out)

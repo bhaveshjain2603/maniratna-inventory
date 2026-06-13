@@ -92,7 +92,7 @@ curl http://localhost:5000/api/products \
 { _id, productCode, category, weight, barcode, qrCode, status, notes }
 
 // Transaction: Audit trail
-{ _id, product, actionType, previousStatus, newStatus, weight, user, device }
+{ _id, product, statusType, previousStatus, newStatus, weight, user, device }
 
 // Category: Product types
 { _id, name, description, isActive }

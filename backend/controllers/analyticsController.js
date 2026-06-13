@@ -34,11 +34,11 @@ export const getDashboardStats = async (req, res) => {
     });
 
     const todayStockIn = todayTransactions.filter(
-      t => t.actionType === 'In Stock'
+      t => t.statusType === 'In Stock'
     ).length;
 
     const todayStockOut = todayTransactions.filter(
-      t => ['Stock Out', 'Sold'].includes(t.actionType)
+      t => ['Stock Out', 'Sold'].includes(t.statusType)
     ).length;
 
     res.json({
@@ -107,7 +107,7 @@ export const getMonthlyMovement = async (req, res) => {
       {
         $match: {
           createdAt: { $gte: sixMonthsAgo },
-          actionType: { $in: ['Stock In', 'Stock Out', 'Sold'] },
+          statusType: { $in: ['Stock In', 'Stock Out', 'Sold'] },
         },
       },
       {
@@ -115,7 +115,7 @@ export const getMonthlyMovement = async (req, res) => {
           _id: {
             year: { $year: '$createdAt' },
             month: { $month: '$createdAt' },
-            action: '$actionType',
+            action: '$statusType',
           },
           count: { $sum: 1 },
           totalWeight: { $sum: '$weight.gross' },
@@ -169,7 +169,7 @@ export const getDeadStock = async (req, res) => {
 
     // Find products with no transactions in last 90 days
     const recentlyMovedProducts = await Transaction.distinct('product', {
-      actionType: { $in: ['Sold', 'Stock Out', 'Returned'] },
+      statusType: { $in: ['Sold', 'Stock Out', 'Returned'] },
       createdAt: { $gte: ninetyDaysAgo },
     });
 

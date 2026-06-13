@@ -20,7 +20,7 @@ const transactionSchema = new mongoose.Schema(
 
     barcode: String,
 
-    actionType: {
+    statusType: {
       type: String,
       enum: ['In Stock', 'Sold', 'Returned', 'Edit'],
       required: true,
@@ -81,7 +81,7 @@ const transactionSchema = new mongoose.Schema(
 // Index for faster queries
 transactionSchema.index({ productCode: 1 });
 transactionSchema.index({ createdAt: -1 });
-transactionSchema.index({ actionType: 1 });
+transactionSchema.index({ statusType: 1 });
 transactionSchema.index({ user: 1 });
 
 export default mongoose.model('Transaction', transactionSchema);

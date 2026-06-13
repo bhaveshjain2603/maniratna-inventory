@@ -116,7 +116,7 @@ export const createProduct = async (req, res) => {
         net: product.weight.net,
       },
     
-      actionType: "In Stock",
+      statusType: "In Stock",
     
       reason: "In Stock",
     
@@ -163,24 +163,24 @@ export const updateProduct = async (req, res) => {
     }
     await product.save();
 
-    let actionType = 'Edit';
+    let statusType = 'Edit';
 
     if (oldData.status !== product.status) {
       switch (product.status) {
         case 'In Stock':
-          actionType = 'In Stock';
+          statusType = 'In Stock';
           break;
       
         case 'Sold':
-          actionType = 'Sold';
+          statusType = 'Sold';
           break;
       
         case 'Returned':
-          actionType = 'Returned';
+          statusType = 'Returned';
           break;
       
         default:
-          actionType = 'Edit';
+          statusType = 'Edit';
       }
     }
 
@@ -198,7 +198,7 @@ export const updateProduct = async (req, res) => {
         net: product.weight?.net || 0,
       },
     
-      actionType,
+      statusType,
     
       previousStatus: oldData.status,
       newStatus: product.status,

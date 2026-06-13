@@ -72,7 +72,7 @@ export const stockOutProduct = async (req, res) => {
           net: soldWeight,
         },
 
-        actionType:
+        statusType:
           status === 'Returned'
             ? 'Returned'
             : 'Sold',
@@ -112,7 +112,7 @@ export const stockOutProduct = async (req, res) => {
         net: product.weight.net,
       },
 
-      actionType: 'Sold',
+      statusType: 'Sold',
 
       reason: reason || 'Customer Sale',
 

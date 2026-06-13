@@ -3,10 +3,10 @@ import Product from '../models/Product.js';
 
 export const getAllTransactions = async (req, res) => {
   try {
-    const { actionType, startDate, endDate, limit = 50, skip = 0 } = req.query;
+    const { statusType, startDate, endDate, limit = 50, skip = 0 } = req.query;
     let query = {};
 
-    if (actionType) query.actionType = actionType;
+    if (statusType) query.statusType = statusType;
     if (startDate || endDate) {
       query.createdAt = {};
       if (startDate) query.createdAt.$gte = new Date(startDate);
@@ -44,7 +44,7 @@ export const stockIn = async (req, res) => {
     const transaction = await Transaction.create({
       product: product._id,
       productCode: product.productCode,
-      actionType: 'In Stock',
+      statusType: 'In Stock',
       previousStatus: oldStatus,
       newStatus: 'In Stock',
       weight: {
@@ -89,7 +89,7 @@ export const stockOut = async (req, res) => {
     const transaction = await Transaction.create({
       product: product._id,
       productCode: product.productCode,
-      actionType: reason === 'Customer Sale' ? 'Sold' : 'Stock Out',
+      statusType: reason === 'Customer Sale' ? 'Sold' : 'Stock Out',
       previousStatus: oldStatus,
       newStatus: product.status,
       weight: {

@@ -17,7 +17,7 @@ const TransactionsPage = () => {
       setLoading(true);
       const response = await api.get('/transactions', {
         params: {
-          actionType: actionFilter,
+          statusType: actionFilter,
           startDate: dateRange.start,
           endDate: dateRange.end,
           limit: 100,
@@ -33,7 +33,7 @@ const TransactionsPage = () => {
     }
   };
 
-  const actionTypes = ['In Stock', 'Sold', 'Returned'];
+  const statusTypes = ['In Stock', 'Sold', 'Returned'];
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -64,7 +64,7 @@ const TransactionsPage = () => {
             className="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent text-xs md:text-sm"
           >
             <option value="">All Actions</option>
-            {actionTypes.map((action) => (
+            {statusTypes.map((action) => (
               <option key={action} value={action}>
                 {action}
               </option>
@@ -125,7 +125,7 @@ const TransactionsPage = () => {
                   <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm">Stone Wt.</th>
                   <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm">Tag Wt.</th>
                   <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm">Net Wt.</th>
-                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm">Action</th>
+                  <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm">Status</th>
                   <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm">Reason</th>
                   <th className="px-3 md:px-6 py-2 md:py-3 text-left text-xs md:text-sm hidden md:table-cell">User</th>
                 </tr>
@@ -164,7 +164,7 @@ const TransactionsPage = () => {
                     </td>
                       
                     <td className="px-3 md:px-6 py-2 md:py-4 text-xs md:text-sm">
-                      {trans.actionType}
+                      {trans.statusType}
                     </td>
                     <td className="px-3 md:px-6 py-2 md:py-4 text-xs md:text-sm">
                       {trans.reason}
@@ -198,8 +198,8 @@ const TransactionsPage = () => {
                   </p>
                   <p className="text-sm font-bold text-gold mt-1">{trans.productCode}</p>
                 </div>
-                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(trans.actionType)}`}>
-                  {trans.actionType}
+                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getStatusColor(trans.statusType)}`}>
+                  {trans.statusType}
                 </span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs mb-2">
