@@ -5,19 +5,19 @@ import { formatWeight, formatDate } from '../utils/formatters';
 const TransactionsPage = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [actionFilter, setActionFilter] = useState('');
+  const [statusFilter, setStatusFilter] = useState('');
   const [dateRange, setDateRange] = useState({ start: '', end: '' });
 
   useEffect(() => {
     fetchTransactions();
-  }, [actionFilter, dateRange]);
+  }, [statusFilter, dateRange]);
 
   const fetchTransactions = async () => {
     try {
       setLoading(true);
       const response = await api.get('/transactions', {
         params: {
-          statusType: actionFilter,
+          statusType: statusFilter,
           startDate: dateRange.start,
           endDate: dateRange.end,
           limit: 100,
@@ -33,7 +33,7 @@ const TransactionsPage = () => {
     }
   };
 
-  const statusTypes = ['In Stock', 'Sold', 'Returned'];
+  const statusTypes = ['In Stock', 'Sold', 'Returned', 'Edit'];
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -56,17 +56,17 @@ const TransactionsPage = () => {
       <div className="bg-white rounded-lg shadow p-3 md:p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 md:gap-4">
         <div>
           <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">
-            Action Type
+            Status Type
           </label>
           <select
-            value={actionFilter}
-            onChange={(e) => setActionFilter(e.target.value)}
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
             className="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent text-xs md:text-sm"
           >
-            <option value="">All Actions</option>
-            {statusTypes.map((action) => (
-              <option key={action} value={action}>
-                {action}
+            <option value="">All Statuses</option>
+            {statusTypes.map((status) => (
+              <option key={status} value={status}>
+                {status}
               </option>
             ))}
           </select>
