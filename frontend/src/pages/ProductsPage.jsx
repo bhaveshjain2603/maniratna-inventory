@@ -110,7 +110,7 @@ const ProductsPage = () => {
                     Gross Weight
                   </span>
 
-                  <span>{selectedProduct.weight?.gross} g</span>
+                  <span>{formatWeight(selectedProduct.weight?.gross)} g</span>
                 </div>
               </div>
 
