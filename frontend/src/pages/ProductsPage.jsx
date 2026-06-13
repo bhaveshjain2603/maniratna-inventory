@@ -48,6 +48,11 @@ const ProductsPage = () => {
     }
   };
 
+  const openDeleteModal = (product) => {
+    setSelectedProduct(product);
+    setShowDeleteModal(true);
+  };
+
   const handleDelete = async (id) => {
     try {
       await api.delete(`/products/${id}`);
@@ -73,7 +78,6 @@ const ProductsPage = () => {
 
   return (
     <div className="space-y-4 md:space-y-6">
-
       {showDeleteModal && selectedProduct && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
