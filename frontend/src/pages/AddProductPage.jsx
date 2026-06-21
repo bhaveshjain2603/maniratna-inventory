@@ -337,7 +337,7 @@ const AddProductPage = () => {
           {!isSimplifiedWeight(formData.category) && (
             <div>
               <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">
-                Stone Weight (g) *
+                Stone Weight (g)
               </label>
               <input
                 type="number"
