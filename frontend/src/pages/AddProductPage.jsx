@@ -337,7 +337,7 @@ const AddProductPage = () => {
           {!isSimplifiedWeight(formData.category) && (
             <div>
               <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">
-                Stone (g)
+                Stone Weight (g) *
               </label>
               <input
                 type="number"
@@ -355,7 +355,7 @@ const AddProductPage = () => {
           {(needsTagWeight(formData.category)) && (
             <div>
               <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">
-                Tag Weight (g)
+                Tag Weight (g) *
               </label>
               <input
                 type="number"
@@ -365,6 +365,7 @@ const AddProductPage = () => {
                 step="0.001"
                 placeholder="0.000"
                 className="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent text-xs md:text-sm"
+                required
               />
             </div>
           )}
