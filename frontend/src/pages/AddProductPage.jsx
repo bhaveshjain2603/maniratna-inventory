@@ -30,7 +30,7 @@ const AddProductPage = () => {
 
   // Check if category uses simplified weight fields (only gross, no stone)
   const isSimplifiedWeight = (category) => {
-    return ['Earrings', 'Baby Rings', 'Bracelets'].includes(category);
+    return ['Earrings', 'Baby Rings'].includes(category);
   };
 
   // Check if category needs tag weight (Earrings)
