@@ -20,7 +20,6 @@ const TransactionsPage = () => {
           statusType: statusFilter,
           startDate: dateRange.start,
           endDate: dateRange.end,
-          limit: 100,
         },
       });
       setTransactions(response.data.transactions || []);

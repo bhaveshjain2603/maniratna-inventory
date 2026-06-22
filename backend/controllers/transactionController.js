@@ -3,7 +3,7 @@ import Product from '../models/Product.js';
 
 export const getAllTransactions = async (req, res) => {
   try {
-    const { statusType, startDate, endDate, limit = 50, skip = 0 } = req.query;
+    const { statusType, startDate, endDate, skip = 0 } = req.query;
     let query = {};
 
     if (statusType) query.statusType = statusType;
@@ -17,7 +17,6 @@ export const getAllTransactions = async (req, res) => {
       .populate('product', 'productCode category weight')
       .populate('user', 'name email')
       .sort({ createdAt: -1 })
-      .limit(parseInt(limit))
       .skip(parseInt(skip));
 
     const total = await Transaction.countDocuments(query);
