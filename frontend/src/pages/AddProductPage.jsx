@@ -1,52 +1,53 @@
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../utils/api';
-import { calculateNetWeight } from '../utils/formatters';
+import React, { useState, useRef } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
+import { calculateNetWeight } from "../utils/formatters";
 
 const AddProductPage = () => {
   const [entryMode, setEntryMode] = useState(null); // 'manual' or 'barcode'
   const [formData, setFormData] = useState({
-    productCode: '',
-    category: '',
-    weight: { gross: '', stone: '', tag: '' },
-    notes: '',
+    productCode: "",
+    category: "",
+    weight: { gross: "", stone: "", tag: "" },
+    notes: "",
   });
-  const [scannedBarcode, setScannedBarcode] = useState('');
+  const [scannedBarcode, setScannedBarcode] = useState("");
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const navigate = useNavigate();
   const scanInputRef = useRef(null);
 
   const categories = [
-    'Earrings',
-    'Gents Ring',
-    'Ladies Ring',
-    'Baby Rings',
-    'Couple Ring',
-    'God Ring',
-    'Bracelets',
+    "Earrings",
+    "Gents Ring",
+    "Ladies Ring",
+    "Baby Rings",
+    "Couple Ring",
+    "God Ring",
+    "Bracelets",
   ];
 
   // Check if category uses simplified weight fields (only gross, no stone)
   const isSimplifiedWeight = (category) => {
-    return ['Earrings', 'Baby Rings'].includes(category);
+    return ["Earrings", "Baby Rings"].includes(category);
   };
 
   // Check if category needs tag weight (Earrings)
   const needsTagWeight = (category) => {
-    return category === 'Earrings';
+    return category === "Earrings";
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name.startsWith('weight.')) {
-      const field = name.split('.')[1];
+    if (name.startsWith("weight.")) {
+      const field = name.split(".")[1];
       setFormData((prev) => ({
         ...prev,
         weight: {
           ...prev.weight,
-          [field]: parseFloat(value) || '',
+          [field]: parseFloat(value) || "",
         },
       }));
     } else {
@@ -59,14 +60,14 @@ const AddProductPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
 
     if (
       !formData.productCode ||
       !formData.category ||
-      formData.weight.gross === ''
+      formData.weight.gross === ""
     ) {
-      setError('Please fill in all required fields');
+      toast.error("Please fill in all required fields");
       return;
     }
 
@@ -76,12 +77,12 @@ const AddProductPage = () => {
       const netWeight = calculateNetWeight(
         formData.weight.gross,
         formData.weight.stone,
-        formData.weight.tag
+        formData.weight.tag,
       );
 
-      console.log('Before API');
+      console.log("Before API");
 
-      const response = await api.post('/products', {
+      const response = await api.post("/products", {
         productCode: formData.productCode,
         category: formData.category,
         weight: {
@@ -92,18 +93,28 @@ const AddProductPage = () => {
         },
       });
 
-      console.log('API Response:', response);
+      console.log("API Response:", response);
 
-      navigate('/products');
+      toast.success("Product added successfully!");
+
+      navigate("/products");
     } catch (err) {
-      console.error('Create Product Error:', err);
+      console.error("Create Product Error:", err);
 
       if (err.response) {
+        const message = err.response.data?.message;
+
+        if (message?.includes("already exists")) {
+          toast.error("Product already exists!");
+        } else {
+          toast.error(message || "Failed to create product");
+        }
+
         console.log(err.response.data);
+      } else {
+        toast.error("Server not reachable");
       }
-    
-    }
-    finally {
+    } finally {
       setLoading(false);
       setSaving(false);
     }
@@ -112,7 +123,7 @@ const AddProductPage = () => {
   const netWeight = calculateNetWeight(
     formData.weight.gross,
     formData.weight.stone,
-    formData.weight.tag
+    formData.weight.tag,
   );
 
   const handleBarcodeInput = (e) => {
@@ -131,20 +142,20 @@ const AddProductPage = () => {
   const resetForm = () => {
     setEntryMode(null);
     setFormData({
-      productCode: '',
-      category: '',
-      weight: { gross: '', stone: '', tag: '' },
-      notes: '',
+      productCode: "",
+      category: "",
+      weight: { gross: "", stone: "", tag: "" },
+      notes: "",
     });
-    setScannedBarcode('');
-    setError('');
+    setScannedBarcode("");
+    setError("");
   };
 
   const handleBackButton = () => {
     if (entryMode) {
       resetForm();
     } else {
-      navigate('/products');
+      navigate("/products");
     }
   };
 
@@ -153,19 +164,21 @@ const AddProductPage = () => {
     return (
       <div className="max-w-4xl mx-auto">
         <button
-          onClick={() => navigate('/products')}
+          onClick={() => navigate("/products")}
           className="mb-6 border border-gray-300 text-gray-700 font-semibold py-2 px-4 md:px-6 rounded-lg hover:bg-gray-50 transition text-xs md:text-sm"
         >
           ← Go Back
         </button>
 
-        <h1 className="text-lg md:text-2xl lg:text-3xl font-bold text-matte-black mb-6 md:mb-8">➕ Add New Product</h1>
+        <h1 className="text-lg md:text-2xl lg:text-3xl font-bold text-matte-black mb-6 md:mb-8">
+          ➕ Add New Product
+        </h1>
         {/* <p className="text-xs md:text-sm text-gray-600 mb-6 md:mb-12">Choose how you want to add the product</p> */}
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
           {/* Manual Entry Option */}
           <div
-            onClick={() => setEntryMode('manual')}
+            onClick={() => setEntryMode("manual")}
             className="bg-white rounded-lg shadow-lg p-4 md:p-8 cursor-pointer hover:shadow-xl hover:scale-105 transition-all"
           >
             <div className="text-4xl md:text-6xl mb-3 md:mb-4">📝</div>
@@ -173,13 +186,16 @@ const AddProductPage = () => {
               Add Manually
             </h2>
             <p className="text-xs md:text-sm text-gray-600 mb-4 md:mb-6">
-              Enter product information directly. Best for products with barcodes.
+              Enter product information directly. Best for products with
+              barcodes.
             </p>
             <div className="bg-gold text-matte-black font-semibold py-2 px-3 md:px-4 rounded-lg text-center text-xs md:text-sm">
               Start Manual Entry
             </div>
             <div className="mt-4 md:mt-6 pt-4 md:pt-6 border-t border-gray-200">
-              <p className="text-xs md:text-sm text-gray-600 font-semibold mb-2 md:mb-3">Fields:</p>
+              <p className="text-xs md:text-sm text-gray-600 font-semibold mb-2 md:mb-3">
+                Fields:
+              </p>
               <ul className="text-xs md:text-sm text-gray-600 space-y-1">
                 <li>✓ Product Code</li>
                 <li>✓ Category</li>
@@ -217,7 +233,6 @@ const AddProductPage = () => {
             </div>
           </div> */}
         </div>
-
       </div>
     );
   }
@@ -227,12 +242,12 @@ const AddProductPage = () => {
       <div className="flex flex-row items-start sm:items-center justify-between gap-2 mb-4 md:mb-6">
         <div className="min-w-0">
           <h1 className="text-lg md:text-2xl lg:text-3xl font-bold text-matte-black">
-            {entryMode === 'manual' ? '📝 Manual Entry' : '📱 Barcode Scan'}
+            {entryMode === "manual" ? "📝 Manual Entry" : "📱 Barcode Scan"}
           </h1>
           <p className="text-xs md:text-sm text-gray-600 mt-1">
-            {entryMode === 'manual'
-              ? 'Enter all product information manually'
-              : 'Scan factory barcode, then fill in details'}
+            {entryMode === "manual"
+              ? "Enter all product information manually"
+              : "Scan factory barcode, then fill in details"}
           </p>
         </div>
       </div>
@@ -243,7 +258,10 @@ const AddProductPage = () => {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-4 md:p-8 space-y-4 md:space-y-6">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-lg shadow p-4 md:p-8 space-y-4 md:space-y-6"
+      >
         {/* Barcode Scanning Input (Hidden for Desktop Scanner) */}
         {/* {entryMode === 'barcode' && (
           <div className="hidden">
@@ -319,7 +337,9 @@ const AddProductPage = () => {
           {/* Gross Weight - shown for all */}
           <div>
             <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">
-              {isSimplifiedWeight(formData.category) ? 'Total Weight (g) *' : 'Gross Weight (g) *'}
+              {isSimplifiedWeight(formData.category)
+                ? "Total Weight (g) *"
+                : "Gross Weight (g) *"}
             </label>
             <input
               type="number"
@@ -352,7 +372,7 @@ const AddProductPage = () => {
           )}
 
           {/* Tag Weight - for Earrings or regular items */}
-          {(needsTagWeight(formData.category)) && (
+          {needsTagWeight(formData.category) && (
             <div>
               <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1 md:mb-2">
                 Tag Weight (g) *
@@ -391,17 +411,16 @@ const AddProductPage = () => {
             disabled={loading}
             className="flex-1 bg-gold text-matte-black font-semibold py-2 rounded-lg hover:bg-yellow-600 transition disabled:opacity-50 text-xs md:text-sm"
           >
-            {loading ? '⏳ Creating...' : 'Create Product'}
+            {loading ? "⏳ Creating..." : "Create Product"}
           </button>
           <button
             type="button"
             onClick={handleBackButton}
             className="flex-1 border border-gray-300 text-gray-700 font-semibold py-2 rounded-lg hover:bg-gray-50 transition text-xs md:text-sm"
           >
-            {entryMode ? 'Back' : '✕ Cancel'}
+            {entryMode ? "Back" : "✕ Cancel"}
           </button>
         </div>
-
       </form>
     </div>
   );
