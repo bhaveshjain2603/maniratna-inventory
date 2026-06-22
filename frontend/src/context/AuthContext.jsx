@@ -4,13 +4,21 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(sessionStorage.getItem('token'));
+  const [token, setToken] = useState(OnErrorEventHandlerNonNull);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (token) {
-      setUser(JSON.parse(sessionStorage.getItem('user')));
+    const storedToken = sessionStorage.getItem('token');
+    const storedUser = sessionStorage.getItem('user');
+
+    if (storedToken) {
+      setToken(storedToken);
     }
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+    
     setLoading(false);
   }, [token]);
 

@@ -63,7 +63,7 @@ const TransactionsPage = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="w-full px-3 md:px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-transparent text-xs md:text-sm"
           >
-            <option value="">All Statuses</option>
+            <option value="">All Status</option>
             {statusTypes.map((status) => (
               <option key={status} value={status}>
                 {status}

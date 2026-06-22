@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
+import { useAuth } from '../hooks/useAuth';
 
 const VerifyOTPPage = () => {
   const [otp, setOtp] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  const { login } = useAuth();
 
   const navigate = useNavigate();
 
@@ -23,12 +26,7 @@ const VerifyOTPPage = () => {
         token: otp,
       });
 
-      sessionStorage.setItem('token', res.data.token);
-
-      sessionStorage.setItem(
-        'user',
-        JSON.stringify(res.data.user)
-      );
+      login(res.data.user, res.data.token);
 
       sessionStorage.removeItem('tempUserId');
 
