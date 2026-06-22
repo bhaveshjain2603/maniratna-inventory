@@ -1,4 +1,5 @@
 import React from 'react';
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -17,6 +18,38 @@ import StockOutPage from './pages/StockOutPage';
 import ScannerPage from './pages/ScannerPage';
 import ReportsPage from './pages/ReportsPage';
 import TransactionsPage from './pages/TransactionsPage';
+
+<Toaster
+  position="top-center"
+  reverseOrder={false}
+  toastOptions={{
+    duration: 3000,
+    style: {
+      background: '#1F1F1F',
+      color: '#fff',
+      border: '1px solid #D4AF37',
+      borderRadius: '12px',
+      padding: '14px 18px',
+      fontSize: '14px',
+      fontWeight: '500',
+      boxShadow: '0 8px 20px rgba(0,0,0,0.25)',
+    },
+
+    success: {
+      iconTheme: {
+        primary: '#D4AF37',
+        secondary: '#1F1F1F',
+      },
+    },
+
+    error: {
+      iconTheme: {
+        primary: '#EF4444',
+        secondary: '#fff',
+      },
+    },
+  }}
+/>
 
 function App() {
   return (
