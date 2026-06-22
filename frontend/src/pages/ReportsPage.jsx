@@ -74,7 +74,7 @@ const ReportsPage = () => {
     }
   };
 
-  const COLORS = ["#D4AF37", "#2A2A2A", "#999999", "#CCCCCC", "#666666"];
+  const COLORS = ["#D4AF37", "#1F2937", "#F4C2C2", "#FF9AA2", "#7C3AED", "#B8860B", "#2563EB"];
 
   const categoryKeys = [
     "Earrings",
@@ -140,7 +140,7 @@ const ReportsPage = () => {
                 key={category}
                 dataKey={category}
                 stackId="a"
-                fill={colors[index % colors.length]}
+                fill={COLORS[index % COLORS.length]}
               />
             ))}
           </BarChart>
