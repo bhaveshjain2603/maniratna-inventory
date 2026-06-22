@@ -109,7 +109,7 @@ export const getMonthlySales = async (req, res) => {
     const sales = await Transaction.aggregate([
       {
         $match: {
-          actionType: "Sold",
+          statusType: "Sold",
           createdAt: {
             $gte: startDate,
             $lt: endDate,
