@@ -26,6 +26,8 @@ const ReportsPage = () => {
     fetchMonthlySales();
   }, [selectedMonth, selectedYear]);
 
+  const isMobile = window.innerWidth < 768;
+
   const fetchMonthlySales = async () => {
     try {
       const res = await api.get(
@@ -74,7 +76,15 @@ const ReportsPage = () => {
     }
   };
 
-  const COLORS = ["#D4AF37", "#1F2937", "#F4C2C2", "#FF9AA2", "#7C3AED", "#B8860B", "#2563EB"];
+  const COLORS = [
+    "#D4AF37",
+    "#1F2937",
+    "#F4C2C2",
+    "#FF9AA2",
+    "#7C3AED",
+    "#B8860B",
+    "#2563EB",
+  ];
 
   const categoryKeys = [
     "Earrings",
@@ -127,13 +137,19 @@ const ReportsPage = () => {
           </select>
         </div>
 
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={isMobile ? 280 : 400}>
           <BarChart data={monthlySales}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="day" />
-            <YAxis />
+            <XAxis
+              dataKey="day"
+              tick={{ fontSize: isMobile ? 10 : 12 }}
+              angle={isMobile ? -45 : 0}
+              textAnchor={isMobile ? "end" : "middle"}
+              height={isMobile ? 50 : 30}
+            />
+            <YAxis tick={{ fontSize: isMobile ? 10 : 12 }} />
             <Tooltip />
-            <Legend />
+            {!isMobile && <Legend />}
 
             {categoryKeys.map((category, index) => (
               <Bar
@@ -141,6 +157,7 @@ const ReportsPage = () => {
                 dataKey={category}
                 stackId="a"
                 fill={COLORS[index % COLORS.length]}
+                barSize={isMobile ? 12 : 20}
               />
             ))}
           </BarChart>
