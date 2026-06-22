@@ -94,7 +94,7 @@ const ProductsPage = () => {
                     Product Code
                   </span>
 
-                  <span className="font-semibold text-gold">
+                  <span>
                     {selectedProduct.productCode}
                   </span>
                 </div>
@@ -110,7 +110,7 @@ const ProductsPage = () => {
                     Gross Weight
                   </span>
 
-                  <span>{selectedProduct.weight?.gross} g</span>
+                  <span>{formatWeight(selectedProduct.weight?.gross)} g</span>
                 </div>
               </div>
 
