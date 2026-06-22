@@ -97,9 +97,11 @@ const AddProductPage = () => {
 
       toast.success("Product added successfully!");
 
-      // setTimeout(() => {
-      //   navigate("/products");
-      // }, 1200);
+      navigate("/products", {
+        state: {
+          successMessage: "Product added successfully",
+        },
+      });
     } catch (err) {
       console.error("Create Product Error:", err);
 

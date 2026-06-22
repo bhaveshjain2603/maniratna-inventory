@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Add as AddIcon,
@@ -20,6 +22,14 @@ const ProductsPage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const bulkCategories = ["Earrings", "Baby Rings", "Bracelets"];
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.successMessage) {
+      toast.success(location.state.successMessage);
+    }
+  }, [location]);
 
   useEffect(() => {
     fetchProducts();
@@ -94,9 +104,7 @@ const ProductsPage = () => {
                     Product Code
                   </span>
 
-                  <span>
-                    {selectedProduct.productCode}
-                  </span>
+                  <span>{selectedProduct.productCode}</span>
                 </div>
 
                 <div className="flex justify-between">

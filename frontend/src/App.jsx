@@ -46,20 +46,6 @@ function App() {
               fontWeight: "500",
               boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
             },
-
-            success: {
-              iconTheme: {
-                primary: "#D4AF37",
-                secondary: "#1F1F1F",
-              },
-            },
-
-            error: {
-              iconTheme: {
-                primary: "#EF4444",
-                secondary: "#fff",
-              },
-            },
           }}
         />
         <Routes>
