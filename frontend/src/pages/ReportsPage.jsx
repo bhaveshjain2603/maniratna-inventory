@@ -39,9 +39,13 @@ const ReportsPage = () => {
       const transformed = [];
 
       for (let day = 1; day <= 31; day++) {
-        transformed.push({
-          day,
+        const row = { day };
+
+        categoryKeys.forEach((category) => {
+          row[category] = 0;
         });
+
+        transformed.push(row);
       }
 
       rawData.forEach((item) => {

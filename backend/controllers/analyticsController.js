@@ -117,17 +117,6 @@ export const getMonthlySales = async (req, res) => {
         },
       },
       {
-        $lookup: {
-          from: "products",
-          localField: "product",
-          foreignField: "_id",
-          as: "productData",
-        },
-      },
-      {
-        $unwind: "$productData",
-      },
-      {
         $group: {
           _id: {
             day: { $dayOfMonth: "$createdAt" },
