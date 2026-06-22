@@ -120,10 +120,10 @@ export const getMonthlySales = async (req, res) => {
         $group: {
           _id: {
             day: { $dayOfMonth: "$createdAt" },
-            category: "$productData.category",
+            category: "$category",
           },
           salesCount: { $sum: 1 },
-          totalWeight: { $sum: "$productData.weight.net" },
+          totalWeight: { $sum: "$weight.net" },
         },
       },
       {
