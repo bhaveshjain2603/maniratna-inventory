@@ -1,5 +1,5 @@
 import React from "react";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import {
   BrowserRouter as Router,
   Routes,
@@ -26,67 +26,81 @@ import TransactionsPage from "./pages/TransactionsPage";
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        <Toaster
-          position="top-center"
-          reverseOrder={false}
-          toastOptions={{
-            duration: 3000,
-            style: {
-              background: "#1F1F1F",
-              color: "#fff",
-              border: "1px solid #D4AF37",
-              borderRadius: "12px",
-              padding: "14px 18px",
-              fontSize: "14px",
-              fontWeight: "500",
-              boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
-            },
+    // <Router>
+    //   <AuthProvider>
+    //     <Toaster
+    //       position="top-center"
+    //       reverseOrder={false}
+    //       toastOptions={{
+    //         duration: 3000,
+    //         style: {
+    //           background: "#1F1F1F",
+    //           color: "#fff",
+    //           border: "1px solid #D4AF37",
+    //           borderRadius: "12px",
+    //           padding: "14px 18px",
+    //           fontSize: "14px",
+    //           fontWeight: "500",
+    //           boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
+    //         },
 
-            success: {
-              iconTheme: {
-                primary: "#D4AF37",
-                secondary: "#1F1F1F",
-              },
-            },
+    //         success: {
+    //           iconTheme: {
+    //             primary: "#D4AF37",
+    //             secondary: "#1F1F1F",
+    //           },
+    //         },
 
-            error: {
-              iconTheme: {
-                primary: "#EF4444",
-                secondary: "#fff",
-              },
-            },
-          }}
-        />
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/verify-otp" element={<VerifyOTPPage />} />
-          <Route path="/setup-2fa" element={<Setup2FAPage />} />
+    //         error: {
+    //           iconTheme: {
+    //             primary: "#EF4444",
+    //             secondary: "#fff",
+    //           },
+    //         },
+    //       }}
+    //     />
+    //     <Routes>
+    //       <Route path="/login" element={<LoginPage />} />
+    //       <Route path="/signup" element={<SignupPage />} />
+    //       <Route path="/verify-otp" element={<VerifyOTPPage />} />
+    //       <Route path="/setup-2fa" element={<Setup2FAPage />} />
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Layout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<DashboardPage />} />
-            <Route path="products" element={<ProductsPage />} />
-            <Route path="products/add" element={<AddProductPage />} />
-            <Route path="products/:id/edit" element={<EditProductPage />} />
-            <Route path="products/:id/stock-out" element={<StockOutPage />} />
-            <Route path="scanner" element={<ScannerPage />} />
-            <Route path="transactions" element={<TransactionsPage />} />
-            <Route path="reports" element={<ReportsPage />} />
-          </Route>
+    //       <Route
+    //         path="/"
+    //         element={
+    //           <ProtectedRoute>
+    //             <Layout />
+    //           </ProtectedRoute>
+    //         }
+    //       >
+    //         <Route index element={<DashboardPage />} />
+    //         <Route path="products" element={<ProductsPage />} />
+    //         <Route path="products/add" element={<AddProductPage />} />
+    //         <Route path="products/:id/edit" element={<EditProductPage />} />
+    //         <Route path="products/:id/stock-out" element={<StockOutPage />} />
+    //         <Route path="scanner" element={<ScannerPage />} />
+    //         <Route path="transactions" element={<TransactionsPage />} />
+    //         <Route path="reports" element={<ReportsPage />} />
+    //       </Route>
 
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </AuthProvider>
-    </Router>
+    //       <Route path="*" element={<Navigate to="/" replace />} />
+    //     </Routes>
+    //   </AuthProvider>
+    // </Router>
+    <>
+      <Toaster />
+      <button
+        onClick={() => toast.success("Toast working")}
+        style={{
+          padding: "20px",
+          margin: "100px",
+          background: "black",
+          color: "white",
+        }}
+      >
+        Test Toast
+      </button>
+    </>
   );
 }
 
