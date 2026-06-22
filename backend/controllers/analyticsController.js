@@ -98,35 +98,58 @@ export const getStatusDistribution = async (req, res) => {
   }
 };
 
-export const getMonthlyMovement = async (req, res) => {
+export const getMonthlySales = async (req, res) => {
   try {
-    const sixMonthsAgo = new Date();
-    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+    const month = parseInt(req.query.month);
+    const year = parseInt(req.query.year);
 
-    const movement = await Transaction.aggregate([
+    const startDate = new Date(year, month - 1, 1);
+    const endDate = new Date(year, month, 1);
+
+    const sales = await Transaction.aggregate([
       {
         $match: {
-          createdAt: { $gte: sixMonthsAgo },
-          statusType: { $in: ['Stock In', 'Stock Out', 'Sold'] },
+          actionType: "Sold",
+          createdAt: {
+            $gte: startDate,
+            $lt: endDate,
+          },
         },
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "product",
+          foreignField: "_id",
+          as: "productData",
+        },
+      },
+      {
+        $unwind: "$productData",
       },
       {
         $group: {
           _id: {
-            year: { $year: '$createdAt' },
-            month: { $month: '$createdAt' },
-            action: '$statusType',
+            day: { $dayOfMonth: "$createdAt" },
+            category: "$productData.category",
           },
-          count: { $sum: 1 },
-          totalWeight: { $sum: '$weight.gross' },
+          salesCount: { $sum: 1 },
+          totalWeight: { $sum: "$productData.weight.net" },
         },
       },
-      { $sort: { '_id.year': 1, '_id.month': 1 } },
+      {
+        $sort: {
+          "_id.day": 1,
+        },
+      },
     ]);
 
-    res.json({ movement });
+    res.json(sales);
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+    res.status(500).json({
+      message: "Error fetching monthly sales",
+      error: error.message,
+    });
   }
 };
 

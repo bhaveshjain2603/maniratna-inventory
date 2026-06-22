@@ -17,10 +17,43 @@ const ReportsPage = () => {
   const [deadStock, setDeadStock] = useState([]);
   const [stockAging, setStockAging] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [monthlySales, setMonthlySales] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   useEffect(() => {
     fetchReportData();
-  }, []);
+    fetchMonthlySales();
+  }, [selectedMonth, selectedYear]);
+
+  const fetchMonthlySales = async () => {
+    try {
+      const res = await api.get(
+        `/analytics/monthly-sales?month=${selectedMonth}&year=${selectedYear}`,
+      );
+
+      const rawData = res.data;
+
+      const transformed = [];
+
+      for (let day = 1; day <= 31; day++) {
+        transformed.push({
+          day,
+        });
+      }
+
+      rawData.forEach((item) => {
+        const day = item._id.day;
+        const category = item._id.category;
+
+        transformed[day - 1][category] = item.salesCount;
+      });
+
+      setMonthlySales(transformed);
+    } catch (error) {
+      console.error("Error fetching monthly sales:", error);
+    }
+  };
 
   const fetchReportData = async () => {
     try {
@@ -43,11 +76,76 @@ const ReportsPage = () => {
 
   const COLORS = ["#D4AF37", "#2A2A2A", "#999999", "#CCCCCC", "#666666"];
 
+  const categoryKeys = [
+    "Earrings",
+    "Gents Ring",
+    "Ladies Ring",
+    "Baby Rings",
+    "Couple Ring",
+    "God Ring",
+    "Bracelets",
+  ];
+
   return (
     <div className="space-y-4 md:space-y-6">
       <h1 className="text-lg md:text-2xl lg:text-3xl font-bold text-matte-black">
         📊 Reports
       </h1>
+
+      {/* Monthly Sales Analytics */}
+      <div className="bg-white rounded-lg shadow p-4 md:p-6">
+        <h2 className="text-lg md:text-xl font-bold mb-4">
+          📈 Monthly Sales Analytics
+        </h2>
+
+        <div className="flex gap-4 mb-4">
+          <select
+            value={selectedMonth}
+            onChange={(e) => setSelectedMonth(Number(e.target.value))}
+            className="border px-4 py-2 rounded-lg"
+          >
+            <option value={1}>JANUARY</option>
+            <option value={2}>FEBRUARY</option>
+            <option value={3}>MARCH</option>
+            <option value={4}>APRIL</option>
+            <option value={5}>MAY</option>
+            <option value={6}>JUNE</option>
+            <option value={7}>JULY</option>
+            <option value={8}>AUGUST</option>
+            <option value={9}>SEPTEMBER</option>
+            <option value={10}>OCTOBER</option>
+            <option value={11}>NOVEMBER</option>
+            <option value={12}>DECEMBER</option>
+          </select>
+
+          <select
+            value={selectedYear}
+            onChange={(e) => setSelectedYear(Number(e.target.value))}
+            className="border px-4 py-2 rounded-lg"
+          >
+            <option value={2026}>2026</option>
+          </select>
+        </div>
+
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={monthlySales}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="day" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+
+            {categoryKeys.map((category, index) => (
+              <Bar
+                key={category}
+                dataKey={category}
+                stackId="a"
+                fill={colors[index % colors.length]}
+              />
+            ))}
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
 
       {/* Category Distribution */}
       <div className="bg-white rounded-lg shadow p-4 md:p-6">
