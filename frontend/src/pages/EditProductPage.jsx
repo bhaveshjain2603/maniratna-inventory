@@ -26,6 +26,7 @@ const EditProductPage = () => {
     'Couple Ring',
     'God Ring',
     'Bracelets',
+    'Chain',
   ];
 
   // Check if category uses simplified weight fields (only gross, no stone)
