@@ -20,6 +20,7 @@ const productSchema = new mongoose.Schema(
         'Couple Ring',
         'God Ring',
         'Bracelets',
+        'Chain',
         'Other'
       ],
     },
