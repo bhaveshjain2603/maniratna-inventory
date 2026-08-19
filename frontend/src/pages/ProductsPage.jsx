@@ -67,7 +67,9 @@ const ProductsPage = () => {
   const categories = [
     "Earrings",
     "Gents Ring",
+    "Gents Ring (Without Tag)",
     "Ladies Ring",
+    "Ladies Ring (Without Tag)",
     "Baby Rings",
     "Couple Ring",
     "God Ring",
