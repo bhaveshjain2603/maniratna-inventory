@@ -21,7 +21,9 @@ const EditProductPage = () => {
   const categories = [
     'Earrings',
     'Gents Ring',
+    'Gents Ring (Without Tag)',
     'Ladies Ring',
+    'Ladies Ring (Without Tag)',
     'Baby Rings',
     'Couple Ring',
     'God Ring',
@@ -31,7 +33,7 @@ const EditProductPage = () => {
 
   // Check if category uses simplified weight fields (only gross, no stone)
   const isSimplifiedWeight = (category) => {
-    return ['Baby Rings', 'Bracelets'].includes(category);
+    return ['Baby Rings', 'Gents Ring (Without Tag)', 'Ladies Ring (Without Tag)', 'Bracelets'].includes(category);
   };
 
   // Check if category needs tag weight (Earrings)
