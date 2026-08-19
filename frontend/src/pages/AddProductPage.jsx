@@ -22,9 +22,9 @@ const AddProductPage = () => {
   const categories = [
     "Earrings",
     "Gents Ring",
-    "Gents Ring (Without Tag),
+    "Gents Ring (Without Tag)",
     "Ladies Ring",
-    "Ladies Ring (Without Tag),
+    "Ladies Ring (Without Tag)",
     "Baby Rings",
     "Couple Ring",
     "God Ring",
