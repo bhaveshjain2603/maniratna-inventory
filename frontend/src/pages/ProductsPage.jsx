@@ -19,7 +19,7 @@ const ProductsPage = () => {
   const [showActionModal, setShowActionModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  const bulkCategories = ["Earrings", "Baby Rings"];
+  const bulkCategories = ["Earrings", "Gents Ring (Without Tag)", "Ladies Ring (Without Tag)", "Baby Rings"];
 
   useEffect(() => {
     fetchProducts();
@@ -67,7 +67,9 @@ const ProductsPage = () => {
   const categories = [
     "Earrings",
     "Gents Ring",
+    "Gents Ring (Without Tag)",
     "Ladies Ring",
+    "Ladies Ring (Without Tag)",
     "Baby Rings",
     "Couple Ring",
     "God Ring",
