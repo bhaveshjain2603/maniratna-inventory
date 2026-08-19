@@ -19,6 +19,8 @@ export const stockOutProduct = async (req, res) => {
       'Earrings',
       'Baby Rings',
       'Bracelets',
+      'Gents Ring (Without Tag)',
+      'Ladies Ring (Without Tag)'
     ];
 
     // ----------------------------------
