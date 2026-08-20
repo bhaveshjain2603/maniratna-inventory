@@ -3,43 +3,152 @@ import Transaction from '../models/Transaction.js';
 
 export const getDashboardStats = async (req, res) => {
   try {
+    // ==================================================
+    // TODAY
+    // ==================================================
+
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
 
-    // Product counts
+
+    // ==================================================
+    // PRODUCT COUNTS
+    // ==================================================
+
     const totalProducts = await Product.countDocuments();
-    const inStockProducts = await Product.countDocuments({ status: 'In Stock' });
-    const soldProducts = await Product.countDocuments({ status: 'Sold' });
-    const returnedProducts = await Product.countDocuments({ status: 'Returned' });
 
-    // Weight totals
-    const products = await Product.find({ status: 'In Stock' });
-    const inStockProductsData = await Product.find({ status: 'In Stock' });
-    const weightStats = products.reduce(
-      (acc, p) => ({
-        gross: acc.gross + (p.weight?.gross || 0),
-        net: acc.net + (p.weight?.net || 0),
-        stone: acc.stone + (p.weight?.stone || 0),
-        tag: acc.tag + (p.weight?.tag || 0),
-      }),
-      { gross: 0, net: 0, stone: 0, tag: 0 }
-    );
-
-    // Today's activities
-    const todayTransactions = await Transaction.find({
-      createdAt: { $gte: today, $lt: tomorrow },
+    const inStockProducts = await Product.countDocuments({
+      status: 'In Stock',
     });
 
+    const soldProducts = await Product.countDocuments({
+      status: 'Sold',
+    });
+
+    const returnedProducts = await Product.countDocuments({
+      status: 'Returned',
+    });
+
+
+    // ==================================================
+    // CURRENT INVENTORY WEIGHT
+    //
+    // IMPORTANT:
+    // Only current Product documents are counted.
+    //
+    // This automatically handles bulk categories:
+    //
+    // Initial:
+    // Earrings = 157.850g
+    //
+    // After selling 20g:
+    // Earrings = 137.850g
+    //
+    // Dashboard counts 137.850g.
+    // ==================================================
+
+    const weightResult = await Product.aggregate([
+      {
+        $match: {
+          status: 'In Stock',
+        },
+      },
+
+      {
+        $group: {
+          _id: null,
+
+          gross: {
+            $sum: {
+              $ifNull: ['$weight.gross', 0],
+            },
+          },
+
+          stone: {
+            $sum: {
+              $ifNull: ['$weight.stone', 0],
+            },
+          },
+
+          tag: {
+            $sum: {
+              $ifNull: ['$weight.tag', 0],
+            },
+          },
+
+          net: {
+            $sum: {
+              $ifNull: ['$weight.net', 0],
+            },
+          },
+        },
+      },
+    ]);
+
+
+    // ==================================================
+    // DEFAULT WEIGHT VALUES
+    // ==================================================
+
+    const weightStats = {
+      gross: 0,
+      stone: 0,
+      tag: 0,
+      net: 0,
+    };
+
+
+    if (weightResult.length > 0) {
+      weightStats.gross = Number(
+        weightResult[0].gross.toFixed(3)
+      );
+
+      weightStats.stone = Number(
+        weightResult[0].stone.toFixed(3)
+      );
+
+      weightStats.tag = Number(
+        weightResult[0].tag.toFixed(3)
+      );
+
+      weightStats.net = Number(
+        weightResult[0].net.toFixed(3)
+      );
+    }
+
+
+    // ==================================================
+    // TODAY'S TRANSACTIONS
+    // ==================================================
+
+    const todayTransactions = await Transaction.find({
+      createdAt: {
+        $gte: today,
+        $lt: tomorrow,
+      },
+    });
+
+
     const todayStockIn = todayTransactions.filter(
-      t => t.statusType === 'In Stock'
+      (transaction) =>
+        transaction.statusType === 'In Stock'
     ).length;
 
+
     const todayStockOut = todayTransactions.filter(
-      t => ['Stock Out', 'Sold'].includes(t.statusType)
+      (transaction) =>
+        ['Stock Out', 'Sold'].includes(
+          transaction.statusType
+        )
     ).length;
+
+
+    // ==================================================
+    // RESPONSE
+    // ==================================================
 
     res.json({
       inventory: {
@@ -48,15 +157,32 @@ export const getDashboardStats = async (req, res) => {
         soldProducts,
         returnedProducts,
       },
-      weights: weightStats,
+
+      weights: {
+        gross: weightStats.gross,
+        stone: weightStats.stone,
+        tag: weightStats.tag,
+        net: weightStats.net,
+      },
+
       today: {
         stockIn: todayStockIn,
         stockOut: todayStockOut,
         transactions: todayTransactions.length,
       },
     });
+
   } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
+
+    console.error(
+      'Dashboard Stats Error:',
+      error
+    );
+
+    res.status(500).json({
+      message: 'Server error',
+      error: error.message,
+    });
   }
 };
 
