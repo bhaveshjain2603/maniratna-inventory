@@ -20,11 +20,13 @@ const EditProductPage = () => {
 
   const categories = [
     'Earrings',
+    'Earrings (Without Tag)',
     'Gents Ring',
     'Gents Ring (Without Tag)',
     'Ladies Ring',
     'Ladies Ring (Without Tag)',
     'Baby Rings',
+    'Baby Rings (Without Tag)',
     'Couple Ring',
     'God Ring',
     'Bracelets',
