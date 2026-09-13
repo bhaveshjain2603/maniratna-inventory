@@ -4,8 +4,8 @@ import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
 import api from '../utils/api';
 
 const BULK_CATEGORIES = [
-  'Earrings',
-  'Baby Rings',
+  'Earrings (Without Tag)',
+  'Baby Rings (Without Tag)',
   'Bracelets',
   'Gents Ring (Without Tag)',
   'Ladies Ring (Without Tag)',

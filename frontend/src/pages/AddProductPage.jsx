@@ -21,11 +21,13 @@ const AddProductPage = () => {
 
   const categories = [
     "Earrings",
+    "Earrings (Without Tag)",
     "Gents Ring",
     "Gents Ring (Without Tag)",
     "Ladies Ring",
     "Ladies Ring (Without Tag)",
     "Baby Rings",
+    "Baby Rings (Without Tag)",
     "Couple Ring",
     "God Ring",
     "Bracelets",
@@ -34,12 +36,12 @@ const AddProductPage = () => {
 
   // Check if category uses simplified weight fields (only gross, no stone)
   const isSimplifiedWeight = (category) => {
-    return ["Earrings", "Baby Rings", "Gents Ring (Without Tag)", "Ladies Ring (Without Tag)"].includes(category);
+    return ["Earrings (Without Tag)", "Baby Rings (Without Tag)", "Gents Ring (Without Tag)", "Ladies Ring (Without Tag)"].includes(category);
   };
 
   // Check if category needs tag weight (Earrings)
   const needsTagWeight = (category) => {
-    return category === "Earrings";
+    return category === "Earrings (Without Tag)" || category === "Earrings";
   };
 
   const handleChange = (e) => {

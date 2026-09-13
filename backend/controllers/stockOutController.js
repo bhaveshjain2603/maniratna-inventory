@@ -22,8 +22,8 @@ export const stockOutProduct = async (req, res) => {
     }
 
     const bulkCategories = [
-      'Earrings',
-      'Baby Rings',
+      'Earrings (Without Tag)',
+      'Baby Rings (Without Tag)',
       'Bracelets',
       'Gents Ring (Without Tag)',
       'Ladies Ring (Without Tag)',
@@ -136,7 +136,7 @@ export const stockOutProduct = async (req, res) => {
           net: soldNetWeight,
         },
 
-        statusType: 'Sold',
+        statusType: status || 'Sold',
 
         reason: reason || 'Customer Sale',
 
@@ -214,7 +214,7 @@ export const stockOutProduct = async (req, res) => {
         net: soldNetWeight,
       },
 
-      statusType: 'Sold',
+      statusType: status || 'Sold',
 
       reason: reason || 'Customer Sale',
 

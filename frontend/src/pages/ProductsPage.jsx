@@ -20,10 +20,10 @@ const ProductsPage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   const bulkCategories = [
-    "Earrings",
+    "Earrings (Without Tag)",
     "Gents Ring (Without Tag)",
     "Ladies Ring (Without Tag)",
-    "Baby Rings",
+    "Baby Rings (Without Tag)",
   ];
 
   useEffect(() => {
@@ -71,11 +71,13 @@ const ProductsPage = () => {
 
   const categories = [
     "Earrings",
+    "Earrings (Without Tag)",
     "Gents Ring",
     "Gents Ring (Without Tag)",
     "Ladies Ring",
     "Ladies Ring (Without Tag)",
     "Baby Rings",
+    "Baby Rings (Without Tag)",
     "Couple Ring",
     "God Ring",
     "Bracelets",
