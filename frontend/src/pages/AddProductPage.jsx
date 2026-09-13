@@ -41,7 +41,7 @@ const AddProductPage = () => {
 
   // Check if category needs tag weight (Earrings)
   const needsTagWeight = (category) => {
-    return category === "Earrings (Without Tag)" || category === "Earrings";
+    return category === "Earrings (Without Tag)";
   };
 
   const handleChange = (e) => {
